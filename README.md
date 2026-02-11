@@ -1,6 +1,6 @@
 # BlindSigner
 
-BlindSigner is an accessibility-first fork of SeedSigner v0.4.6.
+BlindSigner is an accessibility-first fork of SeedSigner v0.8.0
 
 It is designed as an **audio-first, linearly navigable Bitcoin signing device**
 for **blind, visually impaired, and illiterate users**.
