@@ -19,3 +19,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Licensing
+
+BlindSigner is released under the MIT License.
+
+BlindSigner OS is a system image that includes additional third-party
+open-source software components. These components are distributed under
+their respective upstream licenses.
+
+Included components include, but are not limited to:
+
+- Linux Kernel (GPL-2.0)
+  https://www.kernel.org/
+
+- BusyBox (GPL-2.0)
+  https://busybox.net/
+
+- Buildroot (various open-source licenses, primarily GPL-2.0)
+  https://buildroot.org/
+
+- eSpeak-NG (GPL-3.0+)
+  https://github.com/espeak-ng/espeak-ng
+
+BlindSigner application code remains licensed under the MIT License.
+
+All third-party components included in the system image remain licensed
+under their respective licenses. Users are responsible for complying with
+those licenses when redistributing the system image.
+
+Source code for all included GPL components is available from their
+original upstream repositories as linked above.
+
