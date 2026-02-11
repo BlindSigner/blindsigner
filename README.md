@@ -1,135 +1,138 @@
 # BlindSigner
 
-BlindSigner is an accessibility-first fork of SeedSigner v0.8.0
+BlindSigner is an accessibility-focused fork of SeedSigner.
 
-It is designed as an **audio-first, linearly navigable Bitcoin signing device**
-for **blind, visually impaired, and illiterate users**.
-
-BlindSigner prioritizes usability for non-visual interaction over visual
-efficiency for sighted users.
-
-⚠️ BlindSigner is **not** a replacement for SeedSigner.  
-It is a parallel, specialized project with a different primary user group.
+Its goal is to make air-gapped Bitcoin signing hardware usable for blind and visually impaired users by adding audio feedback and screen reader functionality while preserving SeedSigner’s core security model.
 
 ---
 
-## Motivation
+## Vision
 
-There is currently no self-custody Bitcoin signing device that blind users
-can operate independently and securely.
+BlindSigner aims to provide:
 
-BlindSigner aims to enable **true self-custody without assistance**, using:
-- offline operation
-- minimal input controls
-- spoken feedback instead of visual orientation
+- Full menu navigation with audio output  
+- Multi-language spoken feedback  
+- Accessible confirmation of critical actions  
+- USB audio output support  
+- Compatibility with Raspberry Pi Zero hardware  
+- Maximum alignment with upstream SeedSigner for long-term maintainability  
 
-The goal is a **Sound Money device that does not require sight**.
-
----
-
-## Design Principles
-
-- **Audio-first**
-  - Spoken screen names
-  - Spoken focus changes
-  - No reliance on spatial or grid-based layouts
-
-- **Linear navigation**
-  - List-based menus only
-  - No 2×2 tile UI
-  - Predictable focus order
-
-- **Minimal inputs**
-  - UP / DOWN / CONFIRM
-  - Joystick only where unavoidable (e.g. text entry)
-
-- **Offline only**
-  - No cloud services
-  - Offline text-to-speech (TTS)
-
-- **Security first**
-  - Seeds are never stored persistently
-  - RAM-only seed handling
-  - Power-off clears all sensitive data
+This project builds upon the excellent work of the SeedSigner team and extends it with accessibility features.
 
 ---
 
-## Technical Base
+## Project Status
 
-BlindSigner is based on **SeedSigner v0.4.6**, chosen because:
+Current base version: SeedSigner 0.8.6
 
-- It is the last version using the classic list-based MenuView UI
-- Later versions switched to a tile-based GUI unsuitable for non-visual use
-- The codebase is simpler and more approachable for step-by-step development
+Planned features:
 
-BlindSigner intentionally stays close to this version to maximize stability
-and auditability.
+- Integration of eSpeak-ng for text-to-speech  
+- USB sound card support via micro USB OTG  
+- Spoken startup and shutdown feedback  
+- Spoken menu navigation  
+- Spoken QR scanning results  
+- Multi-language speech support  
 
----
-
-## Hardware
-
-- Raspberry Pi Zero W
-- Camera module
-- Physical buttons (UP / DOWN / CONFIRM)
-- Optional joystick (limited use)
-
-Tested with the official SeedSigner 0.4.6 image.
+BlindSigner is currently experimental and under active development.
 
 ---
 
-## Current Status
+## Architecture Overview
 
-This project is in **early development**.
+BlindSigner consists of two components:
 
-Current focus:
-- Stability improvements
-- Robust operation without SD card
-- Understanding and fixing QR scan crashes
-- Preparing the codebase for audio-first interaction
+1. BlindSigner Application (this repository)  
+   A fork of SeedSigner that introduces accessibility modifications.
 
-Accessibility features (TTS, spoken navigation) will be introduced
-incrementally after a stable base is achieved.
+2. BlindSigner OS (based on seedsigner-os)  
+   A custom Buildroot-based Linux image that:
+   - Boots entirely from RAM  
+   - Removes networking and wireless functionality  
+   - Maintains minimal attack surface  
+   - Adds audio subsystem support  
+   - Integrates text-to-speech tools  
 
----
-
-## Non-Goals
-
-BlindSigner explicitly does **not** aim to:
-- Replace SeedSigner
-- Maintain feature parity with newer SeedSigner versions
-- Optimize for visual UI efficiency
-
-Trade-offs are made deliberately in favor of accessibility.
+The OS produces a reproducible microSD card image.
 
 ---
 
-## Relationship to SeedSigner
+## Hardware Target
 
-BlindSigner is a fork of SeedSigner v0.4.6.
+- Raspberry Pi Zero or Zero W  
+- Waveshare 1.3” LCD HAT (standard SeedSigner configuration)  
+- USB sound card connected via micro USB OTG  
+- Headphones or audio output device  
 
-- The original SeedSigner project is respected and credited
-- Changes made here are specific to accessibility requirements
-- This repository does not represent the SeedSigner project
+---
 
-If you are a sighted user looking for the mainstream SeedSigner experience,
-please use the official SeedSigner repository.
+## Building BlindSigner OS
+
+BlindSigner OS is built using the official SeedSigner OS build system, modified to use this repository as the application source.
+
+From within the seedsigner-os directory, build using the appropriate branch of BlindSigner as the application source. The resulting image will be generated inside the images directory and can be flashed to a microSD card.
+
+---
+
+## Accessibility Goals
+
+BlindSigner focuses on:
+
+- Spoken startup confirmation  
+- Spoken menu navigation  
+- Spoken confirmations for sensitive operations  
+- Clear audio feedback for user actions  
+- Support for multiple languages using eSpeak-ng  
+
+Accessibility enhancements must never reduce cryptographic security.
+
+---
+
+## Security Philosophy
+
+BlindSigner preserves the core security principles of SeedSigner:
+
+- Fully air-gapped operation  
+- No networking or wireless connectivity  
+- No Bluetooth  
+- No persistent writable storage after boot  
+- Minimal and auditable system footprint  
+
+Security remains the highest priority.
+
+---
+
+## Contributing
+
+Contributions are welcome.
+
+Areas of interest include:
+
+- Text-to-speech improvements  
+- Language expansion  
+- Audio user experience design  
+- Accessibility testing  
+- Documentation  
+
+Please open issues or pull requests to contribute.
 
 ---
 
 ## Disclaimer
 
-This project is experimental.
+BlindSigner is experimental software.
 
-Use at your own risk.  
-No warranty is provided.
+Do not use with significant amounts of Bitcoin until the software has been thoroughly tested and independently reviewed.
 
-Always verify the code and understand the security model before using any
-Bitcoin signing device.
+You are responsible for verifying and understanding the code before use.
 
 ---
 
-## License
+## Credits
 
-BlindSigner inherits the license of SeedSigner.
-See the LICENSE file for details.
+BlindSigner is based on SeedSigner:  
+https://github.com/SeedSigner/seedsigner
+
+All credit for the original architecture, hardware concept, and security model belongs to the SeedSigner team.
+
+BlindSigner extends their work with accessibility enhancements.
