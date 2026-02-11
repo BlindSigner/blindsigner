@@ -1,7 +1,7 @@
 #!/bin/sh
 # BlindSigner: one-shot audio + TTS debug test on boot
 
-LOG="/tmp/blindsigner-audio.txt"
+LOG="/boot/blindsigner-audio.txt"
 
 echo "=== BlindSigner audio test ===" > "$LOG"
 date >> "$LOG" 2>/dev/null || true
