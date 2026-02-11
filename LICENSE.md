@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2021 SeedSigner
+Copyright (c) 2021 SeedSigner 
 Copyright (c) 2026 BlindSigner contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
