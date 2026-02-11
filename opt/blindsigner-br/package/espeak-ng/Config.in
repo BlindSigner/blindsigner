@@ -1,0 +1,12 @@
+config BR2_PACKAGE_ESPEAK_NG
+    bool "espeak-ng"
+    depends on BR2_INSTALL_LIBSTDCPP
+    depends on BR2_USE_WCHAR
+    depends on BR2_TOOLCHAIN_HAS_THREADS
+    depends on BR2_USE_MMU # fork()
+    depends on !BR2_STATIC_LIBS
+    select BR2_PACKAGE_ALSA_LIB
+    help
+      eSpeak NG is a compact open source software speech synthesizer.
+
+      https://github.com/espeak-ng/espeak-ng
