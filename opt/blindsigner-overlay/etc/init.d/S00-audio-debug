@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Audio Debug sichtbar auf Display (tty1)
+exec > /dev/tty1 2>&1
+
+clear
+echo "BlindSigner Audio Debug"
+echo "======================="
+echo ""
+echo "Waiting for USB..."
+sleep 3
+
+echo ""
+echo "USB devices:"
+ls /sys/bus/usb/devices 2>/dev/null || echo "No USB devices"
+
+echo ""
+echo "ALSA cards:"
+if [ -f /proc/asound/cards ]; then
+    cat /proc/asound/cards
+else
+    echo "No /proc/asound/cards"
+fi
+
+echo ""
+echo "Audio devices:"
+ls /dev/snd 2>/dev/null || echo "No /dev/snd"
+
+echo ""
+echo "Waiting 10 seconds..."
+sleep 10
