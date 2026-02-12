@@ -16,4 +16,5 @@ dtparam=spi=on
 # Set the bootloader delay to 0 seconds. The default is 1s if not specified
 boot_delay=0
 disable_splash=1
-force_turbo=1dtoverlay=dwc2
+force_turbo=1
+dtoverlay=dwc2
