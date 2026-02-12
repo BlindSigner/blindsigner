@@ -1,0 +1,21 @@
+#!/bin/sh
+
+echo "=== BlindSigner AUDIO TEST ===" > /dev/console
+
+# Warten bis USB bereit ist
+sleep 4
+
+# Liste der Soundkarten (nur zur Info)
+cat /proc/asound/cards > /dev/console 2>/dev/null
+
+# Testton (ALSA direkt)
+if command -v speaker-test >/dev/null 2>&1; then
+    speaker-test -t sine -f 440 -l 1 > /dev/null 2>&1
+fi
+
+# Test mit aplay (falls vorhanden)
+if command -v aplay >/dev/null 2>&1; then
+    aplay /usr/share/sounds/alsa/Front_Center.wav > /dev/null 2>&1
+fi
+
+echo "=== AUDIO TEST DONE ===" > /dev/console
