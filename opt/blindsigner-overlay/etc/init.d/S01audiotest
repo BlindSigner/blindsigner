@@ -1,21 +1,57 @@
 #!/bin/sh
 
-echo "=== BlindSigner AUDIO TEST ===" > /dev/console
+LOG="/boot/blindsigner-audio-debug.txt"
 
-# Warten bis USB bereit ist
-sleep 4
+echo "=== BlindSigner AUDIO DEBUG ===" > "$LOG"
+date >> "$LOG" 2>&1
+echo "" >> "$LOG"
 
-# Liste der Soundkarten (nur zur Info)
-cat /proc/asound/cards > /dev/console 2>/dev/null
+echo "--- uname ---" >> "$LOG"
+uname -a >> "$LOG" 2>&1
+echo "" >> "$LOG"
 
-# Testton (ALSA direkt)
+echo "--- cmdline ---" >> "$LOG"
+cat /proc/cmdline >> "$LOG" 2>&1
+echo "" >> "$LOG"
+
+echo "--- usb devices (lsusb) ---" >> "$LOG"
+lsusb >> "$LOG" 2>&1 || echo "lsusb not found" >> "$LOG"
+echo "" >> "$LOG"
+
+echo "--- dmesg (usb/snd/audio/alsa) ---" >> "$LOG"
+dmesg | grep -Ei "dwc2|otg|usb|snd|audio|alsa" >> "$LOG" 2>&1
+echo "" >> "$LOG"
+
+echo "--- /proc/asound/cards ---" >> "$LOG"
+cat /proc/asound/cards >> "$LOG" 2>&1
+echo "" >> "$LOG"
+
+echo "--- aplay -l ---" >> "$LOG"
+aplay -l >> "$LOG" 2>&1 || echo "aplay not found" >> "$LOG"
+echo "" >> "$LOG"
+
+echo "--- try espeak-ng ---" >> "$LOG"
+if command -v espeak-ng >/dev/null 2>&1; then
+  espeak-ng --version >> "$LOG" 2>&1
+else
+  echo "espeak-ng not found" >> "$LOG"
+fi
+echo "" >> "$LOG"
+
+echo "--- try speaker-test ---" >> "$LOG"
 if command -v speaker-test >/dev/null 2>&1; then
-    speaker-test -t sine -f 440 -l 1 > /dev/null 2>&1
+  speaker-test -t sine -f 440 -l 1 >> "$LOG" 2>&1
+else
+  echo "speaker-test not found" >> "$LOG"
 fi
+echo "" >> "$LOG"
 
-# Test mit aplay (falls vorhanden)
+echo "--- try aplay wav ---" >> "$LOG"
 if command -v aplay >/dev/null 2>&1; then
-    aplay /usr/share/sounds/alsa/Front_Center.wav > /dev/null 2>&1
+  aplay /usr/share/sounds/alsa/Front_Center.wav >> "$LOG" 2>&1
+else
+  echo "aplay not found" >> "$LOG"
 fi
+echo "" >> "$LOG"
 
-echo "=== AUDIO TEST DONE ===" > /dev/console
+echo "=== AUDIO DEBUG DONE ===" >> "$LOG"
